@@ -90,11 +90,24 @@ description: "新模型探测与落地 skill：收到新模型信息（权重/re
    不必多引擎都 PK，目标是「打赢现任」不是全面评测。
 2. **同题同参**：文本输入严格同串；图/视频输入用同一源文件；seed 各引擎取等价默认档。
    新模型用 demo 定下的默认档，不用调到最优档（测的是「开箱即用」）。
-3. 运行 `scripts/blind_pack.py --out <dir> --entry "yue2:path" --entry "newmodel:path" ...`：
-   匿名化为槽位（A/B/C…）、生成盲审 ballot.html + key.json（md5 台账）。
-   **key.json 在投票结束前不给 Kai 看。**
-4. 本地 HTTP server 发盲审页（端口 8090 起，参照 kais-archi 惯例 `http://<局域网IP>:8090/`），
-   Kai 在 chat 里回投票（如 `P1: A`、`P2: B`）。
+3. 运行 `scripts/blind_pack.py` 生成盲审页。页面格式**严格按 kais-html 标准**（yue2_generalize_blind.html 范本：GitHub-dark 配色/粘性头/判读指引/优 良 中 差+★最佳/对照锚题/底部导出栏/char-code 臂位揭晓）：
+
+```bash
+python3 scripts/blind_pack.py --out <blind目录> \
+  --title "盲选 PK · <model> vs <现任冠军>" --sub "同题同参 · 开箱默认档 · <日期>" \
+  --media audio|video|image \
+  --axes "判读轴：<按模态写>" \
+  --arms "<model>" --arms "<现任冠军>" \
+  --q "P1 题说明::<model产物>::<冠军产物>" \
+  --q "P2 题说明::<model产物>::<冠军产物>" \
+  [--ctl "锚A::锚B"]
+```
+
+臂位每题独立乱序（确定性种子）防位置偏差；key.json（md5 图谱，0600）在投票结束前不给 Kai 看；
+页面自带 🔓 揭晓臂位按钮，投票结束后 Kai 可自行揭底。
+4. 本地 HTTP server 发盲审页（端口 8090 起，`http://<局域网IP>:8090/blind/ballot.html`），
+   Kai 逐轨评级 + 标★，评完点「📋 复制发回群里」把摘要贴回 chat（格式如
+   `2题盲选PK P1: 轨1优 轨2差 ★轨1 | P2: ... | CTL=同`）。
 5. 收齐票 → 对照 key.json 揭底，写 `verdict.json`（schema 见 blind-pk-protocol.md），
    落 `/home/kai/shared/<日期>/`。
 <!-- /FREEDOM:low -->
