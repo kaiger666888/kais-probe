@@ -85,8 +85,9 @@ description: "新模型探测与落地 skill：收到新模型信息（权重/re
 ### 阶段 4：盲选 PK（对 kap 现役引擎）
 
 <!-- FREEDOM:low -->
-1. 从 [references/kap-engine-registry.md](references/kap-engine-registry.md) 选 1-2 个
-   同模态现役引擎做对手（如新音乐模型 → yue2/music3/sa3/ace）。
+1. 从 [references/kap-engine-registry.md](references/kap-engine-registry.md) 选 **1 个**同模态最强的现役引擎做对手
+   （最强 = kap 生产链默认引擎；无默认则选历史盲审/公认质量最强者，如新音乐模型 → yue2）。
+   不必多引擎都 PK，目标是「打赢现任」不是全面评测。
 2. **同题同参**：文本输入严格同串；图/视频输入用同一源文件；seed 各引擎取等价默认档。
    新模型用 demo 定下的默认档，不用调到最优档（测的是「开箱即用」）。
 3. 运行 `scripts/blind_pack.py --out <dir> --entry "yue2:path" --entry "newmodel:path" ...`：

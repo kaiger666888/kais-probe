@@ -5,7 +5,7 @@
 
 ## 1. 设计
 
-- **对手数**：1-2 个 kap 现役同模态引擎（kap-engine-registry.md 选）。
+- **对手数**：**1 个**——同模态最强现役引擎（现任冠军，选法见 kap-engine-registry.md）。
 - **题目集**：每模态 4-6 题跨风格轴（音乐例：英文流行 / 中文 ballad / synthwave / 中国风电子 /
   史诗管弦 / lo-fi）。图像例：人像 / 风景 / 产品 / 文字排版 / 风格化。
 - **槽位制**：`scripts/blind_pack.py` 把各引擎产物匿名化为 slot_A/B/C，md5 入 key.json（0600）。
@@ -26,7 +26,7 @@
 {
   "date": "2026-10-23",
   "model": "<新模型名>",
-  "opponents": ["yue2", "music3"],
+  "opponents": ["yue2"],
   "default_preset": {"precision": "int8", "steps": 32},
   "vram": {"idle_mib": 432, "peak_mib": 4816, "resident_mib": 4204},
   "timing": {"gen_seconds": 14.2, "notes": "45s 曲 10-19s"},
